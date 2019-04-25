@@ -3,6 +3,7 @@
 #include<iostream>
 #include<string>
 #include<vector>
+class interface;
 class course
 {
     private:
@@ -12,6 +13,7 @@ class course
         std::string termin_1[2]={"0","0"};
         std::string termin_2[2]={"0","0"};
     public:
+        friend class interface;
         course(std::string a,std::vector<course> &courses,int num);
         std::string whatName(){return name;}
         void show(){std::cout<<name<<","<<group<<","<<people<<std::endl;}

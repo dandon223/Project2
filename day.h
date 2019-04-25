@@ -3,6 +3,7 @@
 #include<iostream>
 #include<string>
 #include<vector>
+class interface;
 class day
 {
     private:
@@ -11,6 +12,7 @@ class day
         std::string second[3]={"0","0","0"};
         std::string third[3]={"0","0","0"};
     public:
+        friend class interface;
         day(std::string x){name=x;}
         void show(){std::cout<<name<<" "<<first[2]<<std::endl;}
         int findPlace(std::string courseName , int courseGroup, int people);

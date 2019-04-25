@@ -1,4 +1,5 @@
 #include"day.h"
+#include<iomanip>
 using namespace std;
 
 int day::findPlace(string courseName , int courseGroup, int people)
@@ -32,10 +33,10 @@ int day::findPlace(string courseName , int courseGroup, int people)
 
 ostream & operator<< (ostream &exit, const day &d)
 {
-    exit<< endl;
-    cout<<d.name<<" | "<<d.first[0]<<"|"<<d.first[1]<<"|"<<d.first[2]<<"||";
-    cout<<d.second[0]<<"|"<<d.second[1]<<"|"<<d.second[2]<<"||";
-    cout<<d.third[0]<<"|"<<d.third[1]<<"|"<<d.third[2]<<endl;
+    exit;
+    cout<<setw(3)<<d.name<<" | "<<setw(4)<<d.first[0]<<"."<<d.first[1]<<"|"<<setw(3)<<d.first[2]<<"||";
+    cout<<setw(3)<<d.second[0]<<"."<<d.second[1]<<"|"<<setw(3)<<d.second[2]<<"||";
+    cout<<setw(3)<<d.third[0]<<"."<<d.third[1]<<"|"<<setw(3)<<d.third[2]<<endl;
     return exit;
 
 

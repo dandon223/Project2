@@ -1,10 +1,7 @@
 all: hello
 
 hello:
-	g++ main.cpp course.cpp day.cpp course.h day.h
-valgrind:
-	g++ -Wall -ggdb3 main2.cpp Dictionary.cpp Dictionary.h
-	valgrind --leak-check=full ./a.out
+	g++ main.cpp course.cpp day.cpp interface.cpp interface.h course.h day.h
 dbg:
-	g++ -g main.cpp course.cpp day.cpp course.h day.h
+	g++ -g main.cpp course.cpp day.cpp interface.cpp interface.h course.h day.h
 	gdb a.out
