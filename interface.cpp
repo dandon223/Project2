@@ -14,7 +14,7 @@ void interface::setup(string DAYS[5])
         days.push_back(A);
     }
 }
-
+/*Zczytuje z pliku i zapisuje w tablicy inputs*/
 void interface::readingFile()
 {
     ifstream myfile;
@@ -27,11 +27,8 @@ void interface::readingFile()
         myfile>>input;
     }
     myfile.close();
-    
-    for(int i=0; i<inputs.size();i++)
-        cout<<inputs[i]<<endl;
 }
-
+/* Rozdziela informacje z inputs na poszczegolne kursy*/
 void interface::makingCourses()
 {
     for(int i=0;i<inputs.size();i=i+2)
@@ -57,16 +54,18 @@ void interface::makingCourses()
     for(int i=0; i<courses.size();i++)
         courses[i].show();
 }
-
+/* petla przechodzi przez kazdy kurs i znajduje dla niego odpowiednie godziny w planie*/
 int interface::makingPlan()
 {
+    int whichCourse =0;
     for(int i=0; i < courses.size();i++)
     {
+        whichCourse = i;
         int whichDayFirst = 0;
         int termin1 = 0;
         for(int k=0 ; k<days.size();k++)
         {
-            termin1 = days[k].findPlace(courses[i].whatName(),courses[i].whatGroup(),courses[i].whatPeople());
+            termin1 = days[k].findPlace(courses[i].whatName(),courses[i].whatGroup(),courses[i].howManyPeople());
             if (termin1==1 || termin1==2 || termin1==3)
             {
                 whichDayFirst = k;
@@ -79,11 +78,16 @@ int interface::makingPlan()
             return 2;
         }
         int termin2=0;
-        for(int k=0 ; k<days.size();k++)
+        for(int k= 0 ; k<days.size();k++)
         {
-            if (k!=whichDayFirst)
+            if (whichCourse ==0)
             {
-                termin2 = days[k].findPlace(courses[i].whatName(),courses[i].whatGroup(),courses[i].whatPeople());
+                termin2 = days[days.size()-1].findPlace(courses[i].whatName(),courses[i].whatGroup(),courses[i].howManyPeople());
+                break;
+            }
+           else if (k!=whichDayFirst)
+            {
+                termin2 = days[k].findPlace(courses[i].whatName(),courses[i].whatGroup(),courses[i].howManyPeople());
                 if (termin2==1 || termin2==2 || termin2==3)
                 {
                     break;
@@ -97,7 +101,7 @@ int interface::makingPlan()
         }
     }
 }
-
+/* wypisuje tabelke na ekran*/
 ostream & operator<< (ostream &exit, const interface &d)
 {
     exit;
