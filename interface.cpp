@@ -4,6 +4,7 @@
 #include<iostream>
 #include<fstream>
 #include<iomanip>
+#include <cctype>
 using namespace std;
 
 void interface::setup(string DAYS[5])
@@ -15,23 +16,30 @@ void interface::setup(string DAYS[5])
     }
 }
 /*Zczytuje z pliku i zapisuje w tablicy inputs*/
-void interface::readingFile()
+int interface::readingFile(string filename)
 {
     ifstream myfile;
-    myfile.open("text.txt");
+    myfile.open(filename);
+    if (!myfile.good())
+    {
+        cout<<"Could not open a file!\n";
+        return 1;
+    }
+    
     string input;
     myfile >>input;
     while(!myfile.eof())
     {
         inputs.push_back(input);
-        myfile>>input;
+        myfile >>input;
     }
     myfile.close();
+    return 0;
 }
 /* Rozdziela informacje z inputs na poszczegolne kursy*/
 void interface::makingCourses()
 {
-    for(int i=0;i<inputs.size();i=i+2)
+    for(unsigned int i=0;i<inputs.size();i=i+2)
     {
         int number = stoi(inputs[i+1]);
         while(number!=0)
@@ -51,19 +59,19 @@ void interface::makingCourses()
             inputs[i+1] = number;
         }
     }
-    for(int i=0; i<courses.size();i++)
+    for(unsigned int i=0; i<courses.size();i++)
         courses[i].show();
 }
 /* petla przechodzi przez kazdy kurs i znajduje dla niego odpowiednie godziny w planie*/
 int interface::makingPlan()
 {
     int whichCourse =0;
-    for(int i=0; i < courses.size();i++)
+    for(unsigned int i=0; i < courses.size();i++)
     {
         whichCourse = i;
-        int whichDayFirst = 0;
+        unsigned int whichDayFirst = 0;
         int termin1 = 0;
-        for(int k=0 ; k<days.size();k++)
+        for(unsigned int k=0 ; k<days.size();k++)
         {
             termin1 = days[k].findPlace(courses[i].whatName(),courses[i].whatGroup(),courses[i].howManyPeople());
             if (termin1==1 || termin1==2 || termin1==3)
@@ -78,7 +86,7 @@ int interface::makingPlan()
             return 2;
         }
         int termin2=0;
-        for(int k= 0 ; k<days.size();k++)
+        for(unsigned int k= 0 ; k<days.size();k++)
         {
             if (whichCourse ==0)
             {
@@ -100,12 +108,38 @@ int interface::makingPlan()
             return 2;
         }
     }
+    return 0;
 }
-/* wypisuje tabelke na ekran*/
+/*Sprawdza poprawnie sformatowany plik*/
+int interface::testInput()
+{
+    if(inputs.size()%2!=0)
+        return 1;
+    for(unsigned int i=1; i<inputs.size();i+=2)   // podwojna petla sprawdza czy zostaly wpisane liczby
+    {                                    // tam gdzie powinno zostac podane liczba uczestnikow
+        for(unsigned int k=0; k<inputs[i].size();k++)
+        {
+            if (isdigit(inputs[i][k])==0)
+            {
+                cout<<"Bad Input\n";
+                return 1;
+            }
+        }
+    }
+    return 0;
+}
+void interface::readInput()
+{
+    cout<<"-----------------------\n";
+    cout<<"        Inputs:        \n";
+    for (unsigned int i=0; i<inputs.size();i++)
+        cout<<inputs[i]<<endl;
+}
+
+/* wypisuje tabelke na ekran */
 ostream & operator<< (ostream &exit, const interface &d)
 {
-    exit;
-    cout<<setw(12)<<"14-16";
+    exit<<setw(12)<<"14-16";
     cout<<setw(12)<<"16-18";
     cout<<setw(12)<<"18-20"<<endl;
     for(int i=0 ; i<5 ; i++)

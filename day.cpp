@@ -33,8 +33,8 @@ int day::findPlace(string courseName , int courseGroup, int howManyPeople)
 /*Wypisuje dzien w forme wiersza w tabelce*/
 ostream & operator<< (ostream &exit, const day &d)
 {
-    exit;
-    cout<<setw(3)<<d.name<<" | "<<setw(4)<<d.firstLesson[0]<<"."<<d.firstLesson[1]<<"|"<<setw(3)<<d.firstLesson[2]<<"||";
+    
+    exit<<setw(3)<<d.name<<" | "<<setw(4)<<d.firstLesson[0]<<"."<<d.firstLesson[1]<<"|"<<setw(3)<<d.firstLesson[2]<<"||";
     cout<<setw(3)<<d.secondLesson[0]<<"."<<d.secondLesson[1]<<"|"<<setw(3)<<d.secondLesson[2]<<"||";
     cout<<setw(3)<<d.thirdLesson[0]<<"."<<d.thirdLesson[1]<<"|"<<setw(3)<<d.thirdLesson[2]<<endl;
     return exit;

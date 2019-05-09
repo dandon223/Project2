@@ -15,9 +15,11 @@ class interface
         friend class day;
         friend class course;
         void setup(std::string DAYS[5]);
-        void readingFile();
+        int readingFile(std::string filename);
         void makingCourses();
         int makingPlan();
+        int testInput();
+        void readInput();
         friend std::ostream & operator<< (std::ostream &exit, const interface &d );
 
 
