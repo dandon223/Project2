@@ -13,6 +13,4 @@ Zalozenia dodatkowe:
 W wyniku dzialania programu powinno uzyskac sie informacje czy da sie ulozyc plan zajec przy zalozonych danych wejsciowych, 
 a jesli tak to jedno z mozliwych rozwiazan
 
----------
-Algorytm dziala, pozostalo formatowanie tabeli oraz poprawa stylistyczna kodu 
-(np: zamiana zawartosic main() na kilka funkcji lub klase )
+-------
